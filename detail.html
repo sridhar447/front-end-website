@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Detail - THE CASTLE FASHION HUB</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('bg im.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      background-color: transparent;
+    }
+    /* -- Navbar copied from index.html -- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background-color: rgba(0,0,0,0.7);
+      flex-wrap: wrap;
+      position: relative;
+      background-color: transparent;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 1px 1px 5px gold;
+      cursor: pointer;
+    }
+    .logo:hover {
+      color: gold;
+      text-shadow: 0 0 15px gold;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-links li a:hover {
+      color: gold;
+    }
+    /* -- Existing detail design -- */
+    .detail-container {
+      max-width: 1000px;
+      margin: 60px auto;
+      display: flex;
+      gap: 30px;
+      padding: 20px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+    .detail-image img {
+      width: 350px;
+      border-radius: 12px;
+    }
+    .detail-info h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: gold;
+    }
+    .detail-info p {
+      font-size: 18px;
+      margin: 10px 0;
+      color: gold;
+    }
+    .sizes label {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .detail-buttons {
+      margin-top: 20px;
+    }
+    .detail-buttons button {
+      margin-right: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .buy-btn {
+      background-color: gold;
+      color: black;
+    }
+    .cart-btn {
+      background-color: white;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">THE CASTLE FASHION HUB</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="https://www.instagram.com/the_castle.in/" target="_blank">Instagram</a></li>
+      <li><a href="#" onclick="showContact()">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="detail-container">
+    <div class="detail-image">
+      <img id="product-image" src="" alt="Product" />
+    </div>
+    <div class="detail-info">
+      <h2 id="product-name"></h2>
+      <p id="product-price"></p>
+      <div class="sizes">
+        <p>Available Sizes:</p>
+        <label><input type="radio" name="size" value="S"> S</label>
+        <label><input type="radio" name="size" value="M" checked> M</label>
+        <label><input type="radio" name="size" value="L"> L</label>
+        <label><input type="radio" name="size" value="XL"> XL</label>
+      </div>
+      <div class="detail-buttons">
+        <button class="buy-btn" onclick="buyNow()">Buy Now</button>
+        <button class="cart-btn" onclick="addToCart()">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showContact() {
+      alert("📞 +91 63847-42025");
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const name = decodeURIComponent(params.get('name'));
+    const img = decodeURIComponent(params.get('img'));
+    const price = decodeURIComponent(params.get('price'));
+
+    document.getElementById('product-name').textContent = name;
+    document.getElementById('product-image').src = img;
+    document.getElementById('product-price').textContent = price;
+
+    function addToCart() {
+      const size = document.querySelector('input[name="size"]:checked').value;
+      fetch('/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, img, price, size })
+      })
+      .then(res => {
+        if (res.ok) alert('Item added to cart');
+      });
+    }
+
+    function buyNow() {
+      alert(`Order placed for ${name}`);
+    }
+  </script>
+</body>
+</html>

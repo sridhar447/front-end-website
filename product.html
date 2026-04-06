@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products - THE CASTLE FASHION HUB</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffcfc;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: transparent;
+    }
+
+    .navbar .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: gold;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      color: gold;
+      margin: 30px 0 10px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px gold;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product-card h2 {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .product-card p {
+      color: gold;
+      font-weight: bold;
+    }
+
+    .contact-popup {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: gold;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">THE CASTLE FASHION HUB</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="https://www.instagram.com/the_castle.in/" target="_blank">Instagram</a></li>
+      <li><a href="#" onclick="showContact()">Contact</a></li>
+    </ul>
+    <div id="contact-info" class="contact-popup">📞 +91 63847-42025</div>
+  </nav>
+
+  <h1>Explore Our Products</h1>
+
+  <section id="product-container" class="product-grid"></section>
+
+  <script>
+    function showContact() {
+      const popup = document.getElementById('contact-info');
+      popup.style.display = 'block';
+      setTimeout(() => { popup.style.display = 'none'; }, 8000);
+    }
+
+    const allProducts = [
+      {
+        category: "Downshoulder",
+        slug: "downshoulder",
+        items: [
+          { img: "down 1.jpg", name: "Premium Black", price: "₹999" },
+          { img: "down2.jpg", name: "White Fit", price: "₹1099" },
+          { img: "down 3.jpg", name: "Urban Cool", price: "₹999" },
+          { img: "down 4.jpeg", name: "Street Style", price: "₹1049" },
+          { img: "downn 5.webp", name: "Casual Trend", price: "₹949" }
+        ]
+      },
+      {
+        category: "Baggy Jeans",
+        slug: "baggyjean",
+        items: [
+          { img: "baggy 1.jpeg", name: "Loose Blue", price: "₹1099" },
+          { img: "baggy 2.jpg", name: "Washed Black", price: "₹1149" },
+          { img: "baggy 3.jpeg", name: "Ripped Style", price: "₹1199" },
+          { img: "baggy 4.jpg", name: "Comfort Cut", price: "₹1119" },
+          { img: "baggy 5.jpg", name: "Fade Blue", price: "₹1099" }
+        ]
+      },
+      {
+        category: "Full Sleeve",
+        slug: "fullsleeve",
+        items: [
+          { img: "fs 1.webp", name: "Classic Black", price: "₹899" },
+          { img: "fs 2.jpg", name: "Winter White", price: "₹949" },
+          { img: "fs 3.webp", name: "Urban Grey", price: "₹999" },
+          { img: "fs 4.webp", name: "Office Navy", price: "₹999" },
+          { img: "fs.webp", name: "Stretch Blue", price: "₹899" }
+        ]
+      },
+      {
+        category: "Polofit",
+        slug: "polofit",
+        items: [
+          { img: "pf 1.avif", name: "Polofit Grey", price: "₹999" },
+          { img: "pf 2.jpg", name: "Polofit Navy", price: "₹1049" },
+          { img: "pf 3.jpg", name: "Polofit Black", price: "₹999" },
+          { img: "pf 4.webp", name: "Polofit Olive", price: "₹1049" },
+          { img: "polo fit.jpg", name: "Polofit Sand", price: "₹999" }
+        ]
+      },
+      {
+        category: "Mom Fit",
+        slug: "momfit",
+        items: [
+          { img: "mf 1.jpg", name: "Mom Fit Blue", price: "₹1099" },
+          { img: "mf 2.jpg", name: "Mom Fit Grey", price: "₹1149" },
+          { img: "mf 3.webp", name: "Mom Fit Black", price: "₹1049" },
+          { img: "mf 4.webp", name: "Mom Fit Faded", price: "₹1099" },
+          { img: "mom fit.webp", name: "Mom Fit Sky", price: "₹1149" }
+        ]
+      },
+      {
+        category: "Shirts",
+        slug: "shirt",
+        items: [
+          { img: "s 1.webp", name: "Checked Shirt", price: "₹899" },
+          { img: "s 2.webp", name: "Plain Shirt", price: "₹949" },
+          { img: "s 3.jpeg", name: "Linen Shirt", price: "₹999" },
+          { img: "s 4.jpeg", name: "Striped Shirt", price: "₹999" },
+          { img: "shirt.jpg", name: "Solid Color", price: "₹899" }
+        ]
+      },
+      {
+        category: "Shorts",
+        slug: "shorts",
+        items: [
+          { img: "sh1.jpeg", name: "Cotton Shorts", price: "₹749" },
+          { img: "sh 2.jpeg", name: "Denim Shorts", price: "₹799" },
+          { img: "sh 3.jpeg", name: "Jogger Shorts", price: "₹699" },
+          { img: "sh 4.jpeg", name: "Street Shorts", price: "₹749" },
+          { img: "shorts.webp", name: "Gym Shorts", price: "₹799" }
+        ]
+      },
+      {
+        category: "Track Pants",
+        slug: "track",
+        items: [
+          { img: "t 1.webp", name: "Track Black", price: "₹899" },
+          { img: "t 2.webp", name: "Track Olive", price: "₹999" },
+          { img: "t 3.webp", name: "Track Navy", price: "₹999" },
+          { img: "t 4.jpg", name: "Track White", price: "₹949" },
+          { img: "track.avif", name: "Track Grey", price: "₹899" }
+        ]
+      }
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("product");
+
+    const matchedCategory = allProducts.find(cat => cat.slug === requested);
+
+    const container = document.getElementById("product-container");
+
+    if (matchedCategory) {
+      matchedCategory.items.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <img src="${product.img}" alt="${product.name}" />
+          <h2>${product.name}</h2>
+          <p>${product.price}</p>
+        `;
+        card.onclick = () => {
+          const url = `detail.html?name=${encodeURIComponent(product.name)}&price=${encodeURIComponent(product.price)}&img=${encodeURIComponent(product.img)}`;
+          window.location.href = url;
+        };
+        container.appendChild(card);
+      });
+    } else {
+      container.innerHTML = `<p style="text-align:center; color: gold;">No matching category found.</p>`;
+    }
+  </script>
+</body>
+</html>
